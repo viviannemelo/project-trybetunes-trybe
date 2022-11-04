@@ -7,9 +7,7 @@ class Search extends Component {
       <div data-testid="page-search">
         <BrowserRouter>
           <Switch>
-            <Route>
-              
-            </Route>
+            <Route> </Route>
           </Switch>
         </BrowserRouter>
       </div>

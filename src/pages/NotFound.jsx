@@ -7,9 +7,7 @@ class NotFound extends Component {
       <div data-testid="page-not-found">
         <BrowserRouter>
           <Switch>
-            <Route>
-              
-            </Route>
+            <Route> </Route>
           </Switch>
         </BrowserRouter>
       </div>

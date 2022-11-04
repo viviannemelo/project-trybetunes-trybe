@@ -7,9 +7,7 @@ class ProfileEdit extends Component {
       <div data-testid="page-profile-edit">
         <BrowserRouter>
           <Switch>
-            <Route>
-              
-            </Route>
+            <Route> </Route>
           </Switch>
         </BrowserRouter>
       </div>

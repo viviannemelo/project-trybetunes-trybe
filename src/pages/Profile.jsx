@@ -7,9 +7,7 @@ class Profile extends Component {
       <div data-testid="page-profile">
         <BrowserRouter>
           <Switch>
-            <Route>
-              
-            </Route>
+            <Route> </Route>
           </Switch>
         </BrowserRouter>
       </div>

@@ -7,9 +7,7 @@ class Album extends Component {
       <div data-testid="page-album">
         <BrowserRouter>
           <Switch>
-            <Route path="/album/:id">
-              
-            </Route>
+            <Route path="/album/:id"> </Route>
           </Switch>
         </BrowserRouter>
       </div>

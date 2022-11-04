@@ -7,9 +7,7 @@ class Favorites extends Component {
       <div data-testid="page-favorites">
         <BrowserRouter>
           <Switch>
-            <Route path="/favorites">
-              
-            </Route>
+            <Route path="/favorites"> </Route>
           </Switch>
         </BrowserRouter>
       </div>
