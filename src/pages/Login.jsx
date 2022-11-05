@@ -10,7 +10,7 @@ class Login extends Component {
     loading: true,
   };
 
-  handleChange = (event) => {
+  onInputChange = (event) => {
     const { name } = event.target;
     const { value } = event.target;
     this.setState({
@@ -54,7 +54,7 @@ class Login extends Component {
                   name="nameLogin"
                   placeholder="Nome"
                   value={ nameLogin }
-                  onChange={ this.handleChange }
+                  onChange={ this.onInputChange }
                 />
               </label>
               <button
