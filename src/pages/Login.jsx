@@ -7,7 +7,7 @@ class Login extends Component {
   state = {
     isButtonDisabled: true,
     nameLogin: '',
-    loading: true,
+    isLoading: false,
   };
 
   onInputChange = (event) => {
@@ -15,13 +15,13 @@ class Login extends Component {
     const { value } = event.target;
     this.setState({
       [name]: value,
-    }, this.enabledButton);
+    }, (() => this.enabledButton()));
   };
 
   enabledButton = () => {
     const { nameLogin } = this.state;
     const minLength = 3;
-    const nameIsValid = nameLogin.length >= minLength;
+    const nameIsValid = nameLogin.length < minLength;
     const disabled = nameIsValid;
     this.setState({
       isButtonDisabled: disabled,
@@ -32,25 +32,25 @@ class Login extends Component {
     const { nameLogin } = this.state;
     const { history } = this.props;
     this.setState({
-      loading: false,
+      isLoading: true,
     });
     await createUser({ name: nameLogin });
     history.push('/search');
   };
 
   render() {
-    const { nameLogin, isButtonDisabled, loading } = this.state;
+    const { nameLogin, isButtonDisabled, isLoading } = this.state;
 
     return (
       <div data-testid="page-login">
         {
-          loading ? <Loading /> : (
-            <section className="login-section">
-              <label htmlFor="login-name-input">
+          isLoading ? <Loading /> : (
+            <form className="login-section">
+              <label htmlFor="name">
                 <input
                   data-testid="login-name-input"
                   type="text"
-                  id="login-name-input"
+                  id="name"
                   name="nameLogin"
                   placeholder="Nome"
                   value={ nameLogin }
@@ -65,7 +65,7 @@ class Login extends Component {
               >
                 Entrar
               </button>
-            </section>
+            </form>
           )
         }
       </div>

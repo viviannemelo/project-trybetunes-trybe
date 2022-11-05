@@ -26,7 +26,7 @@ class Search extends Component {
   enabledButton = () => {
     const { artistName } = this.state;
     const minLength = 2;
-    const artistIsValid = artistName.length >= minLength;
+    const artistIsValid = artistName.length < minLength;
     const disabled = artistIsValid;
     this.setState({
       isButtonDisabled: disabled,
