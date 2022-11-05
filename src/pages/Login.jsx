@@ -1,40 +1,40 @@
+import { isDisabled } from '@testing-library/user-event/dist/utils';
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 // import PropTypes from 'prop-types';
-import Loading from '../components/Loading';
-import { createUser } from '../services/userAPI';
+// import Loading from '../components/Loading';
+// import { createUser } from '../services/userAPI';
 
 class Login extends Component {
   state = {
-    buttonEnabled: false,
+    isDisabled: false,
     nameLogin: '',
   };
 
-  handleChangeInputName = (event) => {
-    const { name } = event.target;
-    const { value } = event.target;
+  handleChange = ({ target }) => {
     this.setState({
-      [name]: value,
-    }, (() => {
-      const minLength = 3;
-      const nameLength = nameLogin.length > minLength;
-      const verifyName = nameLength;
-      this.setState({
-        buttonEnabled: verifyName,
-      });
-    }
-    ));
+      [target.name]: target.value,
+    });
   };
 
-  fetchUserApi = async () => {
-    const { nameLogin } = this.state;
-    this.setState({ isLoading: true });
-    await createUser({ name: nameLogin });
-    this.setState({ isLoading: false });
-  };
+  // handleChangeInputName = (event) => {
+  //   const { name } = event.target;
+  //   const { value } = event.target;
+  //   this.setState({
+  //     [name]: value,
+  //   }, (() => {
+  //     const minLength = 3;
+  //     const nameLength = nameLogin.length > minLength;
+  //     const verifyName = nameLength;
+  //     this.setState({
+  //       isDisabled: verifyName,
+  //     });
+  //   }
+  //   ));
+  // };
 
   render() {
-    const { nameLogin, buttonEnabled, isLoading } = this.state;
+    const { nameLogin, isDisabled } = this.state;
 
     return (
       <div data-testid="page-login">
@@ -44,21 +44,19 @@ class Login extends Component {
               data-testid="login-name-input"
               type="text"
               id="login-name-input"
+              name="nameLogin"
               value={ nameLogin }
-              onChange={ this.handleChangeInputName }
+              onChange={ this.handleChange }
             />
           </label>
           <button
             data-testid="login-submit-button"
-            type="button"
-            disabled={ buttonEnabled }
+            type="submit"
+            disabled={ isDisabled }
             onClick={ this.fetchUserApi }
           >
             Entrar
           </button>
-          {
-            isLoading ? <Loading /> : <Redirect to="./search" />
-          }
         </section>
       </div>
     );

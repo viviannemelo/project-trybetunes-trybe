@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
+import Header from '../components/Header';
 
 class Favorites extends Component {
   render() {
@@ -7,7 +8,9 @@ class Favorites extends Component {
       <div data-testid="page-favorites">
         <BrowserRouter>
           <Switch>
-            <Route path="/favorites"> </Route>
+            <Route>
+              <Header />
+            </Route>
           </Switch>
         </BrowserRouter>
       </div>

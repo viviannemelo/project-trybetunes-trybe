@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
+import Header from '../components/Header';
 
 class Profile extends Component {
   render() {
@@ -7,7 +8,9 @@ class Profile extends Component {
       <div data-testid="page-profile">
         <BrowserRouter>
           <Switch>
-            <Route> </Route>
+            <Route>
+              <Header />
+            </Route>
           </Switch>
         </BrowserRouter>
       </div>
