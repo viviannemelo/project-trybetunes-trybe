@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-// import { Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
+import searchAlbumsAPI from '../services/searchAlbumsAPI';
 
 class Search extends Component {
   state = {
     artistName: '',
     isButtonDisabled: true,
     nameInput: '',
-    loading: false,
+    isLoading: false,
     albums: [],
   };
 
@@ -33,68 +33,74 @@ class Search extends Component {
     });
   };
 
+  onButtonClick = () => {
+    const { artistName } = this.state;
+    this.setState((prev) => ({
+      artistName: prev.nameInput,
+      nameInput: '',
+      isLoading: true,
+    }));
+
+    searchAlbumsAPI(artistName).then((data) => {
+      this.setState({
+        isLoading: false,
+        albums: data,
+      });
+    });
+  };
+
   render() {
-    const { artistName, isButtonDisabled, nameInput, loading, albums } = this.state;
+    const { artistName, isButtonDisabled,
+      isLoading, albums, nameInput } = this.state;
 
     return (
       <div data-testid="page-search">
         <Header />
         {
-          loading
+          isLoading
             ? <Loading />
             : (
-              <div>
-                <form>
-                  <label htmlFor="search-artist-input">
-                    <input
-                      data-testid="search-artist-input"
-                      id="search-artist-input"
-                      type="text"
-                      placeholder="Nome do Artista"
-                      value={ nameInput }
-                      onChange={ this.onInputChange }
-                    />
-                  </label>
-                  {
-
-                  }
-                  <button
-                    data-testid="search-artist-button"
-                    type="button"
-                    disabled={ isButtonDisabled }
-                    onClick={ this.handleClick }
-                  >
-                    Procurar
-                  </button>
-                </form>
-                <p>{`Resultado de álbuns de: ${artistName}`}</p>
-                {
-                  albums.length === 0 && (<p>Nenhum álbum foi encontrado</p>)
-                }
-
-                {
-                  albums.map((element) => {
-                    console.log(element);
-                    return (
-                      <div
-                        key={ element.collectionId }
-                      >
-                        <p>
-                          <Link
-                            data-testid={ `link-to-album-${element.collectionId}` }
-                            to={ `/album/${element.collectionId}` }
-                          >
-                            { element.collectionName }
-                          </Link>
-                        </p>
-                      </div>
-                    );
-                  })
-                }
-              </div>
+              <div className="form-search">
+                <input
+                  data-testid="search-artist-input"
+                  type="search"
+                  placeholder="Nome do Artista"
+                  value={ nameInput }
+                  name="nameInput"
+                  onChange={ this.onInputChange }
+                />
+                <button
+                  data-testid="search-artist-button"
+                  type="button"
+                  disabled={ isButtonDisabled }
+                  onClick={ this.onButtonClick }
+                >
+                  Pesquisar
+                </button>
+              </div>/* form-search */
             )
         }
-      </div>
+        {
+          (albums.length !== 0) ? (
+            <div className="albums-section">
+              <h3>{ `Resultado de álbuns de: ${artistName}` }</h3>
+              { albums
+                .map(({ artworkUrl100, collectionId, collectionName }) => (
+                  <div key={ collectionId }>
+                    <img src={ artworkUrl100 } alt={ collectionName } />
+                    <Link
+                      data-testid={ `link-to-album-${collectionId}` }
+                      to={ `/album/${collectionId}` }
+                    >
+                      { collectionName }
+                    </Link>
+                  </div>
+                )) }
+            </div>
+          )
+            : (<p>Nenhum álbum foi encontrado</p>)
+        }
+      </div>/* page-search */
     );
   }
 }
