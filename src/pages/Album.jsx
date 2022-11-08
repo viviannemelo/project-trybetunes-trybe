@@ -6,41 +6,39 @@ import MusicCard from '../components/MusicCard';
 
 class Album extends Component {
   state = {
-    listColection: '',
+    data: 'data',
+    musics: [],
   };
 
   async componentDidMount() {
-    const { match: { params: { id } } } = this.props;
-    const response = await getMusics(id);
+    const { match } = this.props;
+    const { params } = match;
+    const { id } = params;
+    const data = await getMusics(id);
     this.setState({
-      listColection: response.slice(1),
-      infoColection: response[0],
+      data,
+      musics: data.filter((music) => music.trackName),
     });
   }
 
   render() {
-    const { listColection, infoColection } = this.state;
+    const { data, musics } = this.state;
+    const dataInfo = data[0];
+    const { artistName, collectionName } = dataInfo;
+
     return (
       <div data-testid="page-album">
         <Header />
-        {
-          infoColection
-            ? (
-              <div>
-                <h3 data-testid="artist-name">
-                  {infoColection.artistName}
-                </h3>
-                <h4 data-testid="album-name">
-                  {infoColection.collectionName}
-                </h4>
-                <MusicCard listColection={ listColection } />
-              </div>
-            )
-            : (
-              <p>nada</p>
-            )
-        }
-
+        <h1 data-testid="artist-name">{ artistName }</h1>
+        <h2 data-testid="album-name">{ collectionName }</h2>
+        {musics.map((music) => (
+          <MusicCard
+            key={ music.trackName }
+            trackName={ music.trackName }
+            previewUrl={ music.previewUrl }
+            trackId={ music.trackId }
+            music={ music }
+          />))}
       </div>
     );
   }
@@ -49,7 +47,7 @@ class Album extends Component {
 Album.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
-      id: PropTypes.shape,
+      id: PropTypes.string,
     }).isRequired,
   }).isRequired,
 };
