@@ -13,9 +13,11 @@ Esse é um projeto desenvolvido durante o módulo de Front-End na [Trybe](https:
 * Criar rotas, mapeando o caminho da URL com o componente correspondente, via Route.
 * Utilizar o Switch do React Router.
 * Criar links de navegação na aplicação com o componente Link.
+* MUI para estilização.
 
 ## Ferramentas utilizadas
 
 * CSS3
 * JavaScript ES6+
 * React
+* Material UI
