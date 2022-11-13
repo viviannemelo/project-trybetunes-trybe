@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Button, TextField } from '@mui/material';
 import Loading from '../components/Loading';
 import { createUser } from '../services/userAPI';
+import { CustomForm, CustomPaper, CustomBox } from './customPages/CustomLogin';
+import logo from './customPages/images/logo.png';
+import '../index.css';
 
 class Login extends Component {
   state = {
@@ -45,27 +49,35 @@ class Login extends Component {
       <div data-testid="page-login">
         {
           isLoading ? <Loading /> : (
-            <form className="login-section">
-              <label htmlFor="name">
-                <input
-                  data-testid="login-name-input"
-                  type="text"
-                  id="name"
-                  name="nameLogin"
-                  placeholder="Nome"
-                  value={ nameLogin }
-                  onChange={ this.onInputChange }
-                />
-              </label>
-              <button
-                data-testid="login-submit-button"
-                type="submit"
-                disabled={ isButtonDisabled }
-                onClick={ this.handleClick }
-              >
-                Entrar
-              </button>
-            </form>
+            <div className="page-login">
+              <CustomBox>
+                <CustomForm className="login-section">
+                  <CustomPaper elevation={ 3 }>
+                    <img src={ logo } alt="logo-trybetunes" />
+                    <TextField
+                      variant="outlined"
+                      type="text"
+                      id="name"
+                      name="nameLogin"
+                      label="Qual é o seu nome?"
+                      value={ nameLogin }
+                      onChange={ this.onInputChange }
+                      fullWidth
+                    />
+                    <Button
+                      variant="contained"
+                      data-testid="login-submit-button"
+                      type="submit"
+                      disabled={ isButtonDisabled }
+                      onClick={ this.handleClick }
+                      fullWidth
+                    >
+                      Entrar
+                    </Button>
+                  </CustomPaper>
+                </CustomForm>
+              </CustomBox>
+            </div>
           )
         }
       </div>
