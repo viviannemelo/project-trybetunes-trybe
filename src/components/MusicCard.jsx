@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Loading from './Loading';
+import { Favorite, FavoriteBorder } from '@mui/icons-material';
+import { Checkbox } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 import { addSong, removeSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
+import '../index.css';
 
 class MusicCard extends Component {
   state = {
@@ -43,31 +47,34 @@ class MusicCard extends Component {
     const { music, previewUrl, trackName } = this.props;
     const { isLoading, favorited } = this.state;
     return (
-      <div>
+      <div className="music-card-idividual">
         {
-          isLoading ? <Loading /> : (
-            <section>
-              <p>{ trackName }</p>
-              <audio data-testid="audio-component" src={ previewUrl } controls>
-                <track kind="captions" />
-                O seu navegador não suporta o elemento
-                {' '}
-                {' '}
-                <code>audio</code>
-                .
-              </audio>
-              <label htmlFor="checkBox">
-                Favorita
-                <input
-                  data-testid={ `checkbox-music-${music.trackId}` }
+          isLoading
+            ? (
+              <Box sx={ { display: 'flex' } }>
+                <CircularProgress />
+              </Box>
+            ) : (
+              <section className="music-item">
+                <p>{ trackName }</p>
+                <audio src={ previewUrl } controls>
+                  <track kind="captions" />
+                  O seu navegador não suporta o elemento
+                  {' '}
+                  {' '}
+                  <code>audio</code>
+                  .
+                </audio>
+                <Checkbox
                   id={ music.trackId }
+                  icon={ <FavoriteBorder /> }
+                  checkedIcon={ <Favorite /> }
                   type="checkbox"
                   onChange={ this.favoriteSongs }
                   checked={ favorited }
                 />
-              </label>
-            </section>
-          )
+              </section>
+            )
         }
       </div>
     );

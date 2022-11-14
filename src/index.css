@@ -108,3 +108,70 @@ code {
   line-height: 18.1px;
   text-decoration: none;
 }
+
+.music-card img {
+  display: flex;
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  left: 26px;
+  z-index: 1;
+  top: -35px;
+}
+
+.music-card h2 {
+  font-size: 33px;
+  display: flex;
+  left: -13%;
+  top: -50px;
+  position: relative;
+  color: black;
+}
+
+.music-card h1 {
+  font-size: 15px;
+  display: flex;
+  left: -26%;
+  top: 50px;
+  position: relative;
+  color: black;
+}
+
+.music-card {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  background-repeat: repeat-y;
+  position: absolute;
+  width: 86%;
+  height: 100;
+  left: 200px;
+  top: 20%;
+  margin: auto;
+  align-items: center;
+}
+
+.music-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  border-radius: 250px;
+  gap: 100px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  justify-content: space-around;
+}
+
+.music-item p {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 14.35px;
+}
+
+.music-card-idividual {
+  display: flex;
+  border-bottom: 1px solid #CCD4E1;
+  width: 60%;
+  justify-content: center;
+}
