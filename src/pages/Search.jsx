@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { TextField, Button } from '@mui/material';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
@@ -54,51 +55,58 @@ class Search extends Component {
       isLoading, albums, nameInput } = this.state;
 
     return (
-      <div data-testid="page-search">
+      <div className="page-search">
         <Header />
         {
           isLoading
             ? <Loading />
             : (
-              <div className="form-search">
-                <input
-                  data-testid="search-artist-input"
+              <div className="Search-form">
+                <TextField
+                  className="search-artist-input"
                   type="search"
-                  placeholder="Nome do Artista"
+                  label="Nome do Artista"
                   value={ nameInput }
                   name="nameInput"
                   onChange={ this.onInputChange }
+                  variant="outlined"
+                  size="small"
                 />
-                <button
+                <Button
                   data-testid="search-artist-button"
                   type="button"
                   disabled={ isButtonDisabled }
                   onClick={ this.onButtonClick }
                 >
                   Pesquisar
-                </button>
-              </div>/* form-search */
+                </Button>
+              </div>/* Search-form */
             )
         }
         {
           (albums.length !== 0) ? (
             <div className="albums-section">
               <h3>{ `Resultado de álbuns de: ${artistName}` }</h3>
-              { albums
-                .map(({ artworkUrl100, collectionId, collectionName }) => (
-                  <div key={ collectionId }>
-                    <img src={ artworkUrl100 } alt={ collectionName } />
-                    <Link
-                      data-testid={ `link-to-album-${collectionId}` }
-                      to={ `/album/${collectionId}` }
+              <div className="albums">
+                { albums
+                  .map(({ artworkUrl100, collectionId, collectionName }) => (
+                    <div
+                      className="album-item"
+                      key={ collectionId }
                     >
-                      { collectionName }
-                    </Link>
-                  </div>
-                )) }
+                      <img src={ artworkUrl100 } alt={ collectionName } />
+                      <Link
+                        data-testid={ `link-to-album-${collectionId}` }
+                        to={ `/album/${collectionId}` }
+                      >
+                        { collectionName }
+                      </Link>
+                    </div>
+                  )) }
+              </div>
             </div>
           )
-            : (<p>Nenhum álbum foi encontrado</p>)
+            : (<p> </p>)
         }
       </div>/* page-search */
     );

@@ -5,10 +5,14 @@ html {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: url(pages/customPages/images/BG\ AZUL.png) no-repeat, linear-gradient( to right bottom, #003BE5 30%, #00D5E2 80%);
-  background-size: cover;
   width: 100vw;
   height: 100vh;
+  overflow-x: hidden;
+}
+
+body {
+  background: url(pages/customPages/images/BG\ AZUL.png) no-repeat, linear-gradient( to right bottom, #003BE5 30%, #00D5E2 80%);
+  background-size: cover;
 }
 
 code {
@@ -20,4 +24,87 @@ code {
   align-items: center;
   display: flex;
   justify-content: center;
+  color: white;
+  margin-top: 20%;
+}
+
+.Header {
+  background-color: white;
+  height: 100vh;
+  width: 15%;
+  top: 0px;
+  margin-left: -8px;
+  position: fixed;
+}
+
+.Search-form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  position: absolute;
+  width: 86%;
+  height: 20%;
+  left: 200px;
+  top: 0px;
+}
+
+.search-artist-input {
+  width: 50%;
+  justify-content: center;
+  align-self: center;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.Search-form button {
+  color: white;
+  width: 50%;
+  justify-content: center;
+  align-self: center;
+}
+
+.albums-section {
+  background-color: #EFF3F9;
+  background-repeat: repeat-y;
+  position: absolute;
+  width: 86%;
+  height: 100;
+  left: 200px;
+  top: 20%;
+}
+
+.albums {
+  display: flex;
+  flex-wrap: wrap;
+
+}
+
+.albums-section h3 {
+  text-align: center;
+  font-size: 30px;
+  font-style: italic;
+  line-height: 20.5px;
+  font-weight: 300;
+  padding: 40px;
+  color: #003BE5;
+}
+
+.album-item {
+  width: 200px;
+  margin: 40px;
+}
+
+.album-item img {
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.album-item a {
+  font-size: 15px;
+  color: black;
+  font-weight: 700;
+  line-height: 18.1px;
+  text-decoration: none;
 }

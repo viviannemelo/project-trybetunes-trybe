@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import Loading from './Loading';
+import { Stack, ListItem } from '@mui/material';
 import { getUser } from '../services/userAPI';
+import logo from '../pages/customPages/images/logo.png';
+import '../index.css';
+import { CustomBox, CustomLink, CustomProfileLink }
+  from '../pages/customPages/CustomHeader';
 
 class Header extends Component {
   state = {
     nameLogin: '',
-    loading: false,
+    isLoading: false,
   };
 
   componentDidMount() {
@@ -15,29 +18,55 @@ class Header extends Component {
 
   getUser = async () => {
     this.setState({
-      loading: true,
+      isLoading: true,
     });
     const nameLogin = await getUser();
     this.setState({
       nameLogin: nameLogin.name,
-      loading: false,
+      isLoading: false,
     });
   };
 
   render() {
-    const { nameLogin, loading } = this.state;
+    const { nameLogin, isLoading } = this.state;
 
     return (
       <div className="Header">
-        <header data-testid="header-component">
+        <header>
           {
-            loading
-              ? <Loading />
-              : <div data-testid="header-user-name">{ nameLogin }</div>
+            isLoading
+              ? (
+                <p>loading...</p>
+              )
+              : (
+                <CustomBox className="input">
+                  <img src={ logo } alt="logo-trybetunes" />
+                  <Stack spacing={ 1 }>
+                    <ListItem className="search-icon">
+                      <CustomLink underline="none" to="/search" component="button">
+                        Pesquisa
+                      </CustomLink>
+                    </ListItem>
+                    <ListItem className="favorite-icon">
+                      <CustomLink underline="none" to="/favorites" component="button">
+                        Favoritas
+                      </CustomLink>
+                    </ListItem>
+                    <ListItem className="profile-icon">
+                      <CustomLink underline="none" to="/profile" component="button">
+                        Perfil
+                      </CustomLink>
+                    </ListItem>
+                  </Stack>
+                  <CustomProfileLink
+                    underline="none"
+                    to="/profile"
+                  >
+                    { nameLogin }
+                  </CustomProfileLink>
+                </CustomBox>
+              )
           }
-          <Link data-testid="link-to-search" to="/search">Search</Link>
-          <Link data-testid="link-to-favorites" to="/favorites">Favorites</Link>
-          <Link data-testid="link-to-profile" to="/profile">Profile</Link>
         </header>
       </div>
     );
